@@ -1,0 +1,38 @@
+<view class="user_head">
+  <view class="user_img">
+    <image src="{{userInfo.avatarUrl}}"></image>
+    <view class="user_name">{{userInfo.nickName}}</view>
+  </view>
+</view>
+<view class="order_title">
+  <text>我的订单</text>
+</view>
+<view class="order_section">
+  <view class="order_box">
+    <view wx:for="{{orderInfo}}">
+      <view class="sub_order_header no_pay" bindtap='orderdetail' data-id="{{item.id}}">
+        <text class="z fs32 fw">{{item.desc}}</text> 
+        <text>下单日期:</text>
+        <text class="y">{{item.time}}</text>
+      </view>
+      <view class="sub_order_content">
+        <view class="sub_order_img z">
+          <image src="{{item.photo_x}}"></image>
+        </view>
+        <view class="sub_order_img_detail z">
+          <text class="order_img_name">{{item.name}}</text>
+          <view>
+            <text class="m30">共计:{{item.amount}}</text>
+            <block wx:if="{{item.status == 10}}">
+            <view class="other_btn" bindtap="removeOrder" data-order-id="{{item.id}}">取消订单</view>
+            <view class="pay_btn" bindtap="payOrderByWechat" data-orderId="{{item.id}}" data-ordersn="{{item.order_sn}}">立即支付</view>
+            </block>
+            <block wx:if="{{item.status == 20 || item.status == 30}}">
+            <view class="pay_btn" bindtap="recOrder" data-order-id="{{item.id}}">确认收货</view>
+            </block>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

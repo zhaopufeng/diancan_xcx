@@ -1,0 +1,67 @@
+<view>
+  <text>营业时间：{{config.starttime}} - {{config.endtime}}</text>
+  <swiper class="swiper-menu" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item class="swiper-imgs">
+        <image src="{{item.photo}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="nav">
+  <view class="search-btn">
+    <image src="/images/search_ico.png"></image> 
+  </view>
+  <view class="menu-info">
+    <view class="{{currtype == 0 ? 'default active' : 'new'}}" data-type-id="0" bindtap='tapType'>推荐</view>
+    <view class="{{currtype == 1 ? 'default active' : 'new'}}" data-type-id="1" bindtap='tapType'>最新</view>
+    <view class="{{currtype == 2 ? 'default active' : 'new'}}" data-type-id="2" bindtap='tapType'>最热</view>
+  </view>
+</view>
+<view class="cart-tab-wrp">
+  <view class="cart-item-total cart-tab-item">
+    <view class="cart-item-icon-wrp">
+        <image class="cart-item-icon" src="/images/footer_btn_2_active.png" />
+        <text class="cart-item-total-num bc_red">{{total.count}}</text>
+    </view>
+    <text class="cart-item-total-price">￥{{total.money}}</text>
+  </view>
+  <view class="cart-tab-item">
+    <block wx:if="{{yingye == 1}}">
+      <navigator url="/pages/cart/cart" class="cart-tab-item-btn" hover-class="navigator-hover">选好了</navigator>
+    </block>
+    <block wx:else>
+    <text class="cart-tab-item-btn" >未开业</text>
+    </block>
+  </view>
+</view>
+<view class="aslide-menu">
+  <scroll-view class="aslide-box" scroll-y="true" scroll-x="false">
+    <view class="{{status==typeIndex ? 'in' : ''}}" data-index="{{typeIndex}}" bindtap="changeMenu" wx:for="{{productData}}" wx:for-index="typeIndex" wx:for-item="typeItem">{{typeItem.name}}</view>
+    <view style="height:150rpx"></view>
+  </scroll-view>
+  <view class="aslide-content-section">
+    <scroll-view class="aslide-content" scroll-y="false" scroll-x="true" scroll-into-view="{{currentPosition}}" scroll-with-animation="true" bindscrolltolower="scrollBottom">
+      <view id="order{{titleIndex}}" class="aslide-item" wx:for="{{productData}}" wx:for-index="titleIndex" wx:for-item="titleItem">
+        <text class="aslide-item-title">{{titleItem.name}}</text>
+        <view class="aslide-item-info" wx:for="{{titleItem.pro_list}}">
+          <view class="aslide-item-img" bindtap="previewImages">
+            <image src="{{item.photo_x}}"></image>
+          </view>
+          <view class="cart-info-container">
+            <text class="food-name">{{item.name}}</text>
+            <text class="red">¥ <block wx:if="{{item.price_yh != ''}}">{{item.price_yh}}</block><block wx:else>{{item.price}}</block></text>
+            <view>
+            <block wx:if="{{item.count > 0}}">
+            <image class="cart-add" src="/images/plus_gray.png" data-id="{{item.id}}" bindtap='plusCart' data-cid="{{titleItem.id}}"></image>
+            <text>{{item.count}}</text>
+            </block>
+            <image class="cart-add" src="/images/add.png"  data-id="{{item.id}}" data-cid="{{titleItem.id}}" bindtap='addCart' ></image>
+            </view>
+          </view> 
+        </view>
+      </view>
+      <view style="height:150rpx"></view>
+    </scroll-view>
+  </view>
+</view>  

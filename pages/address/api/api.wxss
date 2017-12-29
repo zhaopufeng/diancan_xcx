@@ -1,0 +1,10 @@
+/* pages/address/api/api.wxss */
+.map_container{ 
+    height: 300px; 
+    width: 100%; 
+} 
+
+.map { 
+    height: 100%; 
+    width: 100%; 
+}
