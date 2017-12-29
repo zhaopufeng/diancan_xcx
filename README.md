@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 微信小程序实现移动点餐
 
 ### 项目说明：
@@ -25,3 +26,7 @@
 
 ### 项目地址：
 https://github.com/YuanwuHu/weixin-order
+=======
+# diancan_xcx
+点餐小程序
+>>>>>>> f003ae77e9e6265b2c5cc389e0833f4e55a65704
