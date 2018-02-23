@@ -5,7 +5,8 @@ Page({
   data: {
     userInfo: {},
     timeCounter: null,
-    orderInfo:[]
+    orderInfo:[],
+    form_id: ''
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -150,6 +151,7 @@ Page({
    * 微信支付订单
    */
   payOrderByWechat: function (e) {
+    var that = this;
     var order_id = e.currentTarget.dataset.orderId;
     var order_sn = e.currentTarget.dataset.ordersn;
     if (!order_sn) {
@@ -173,6 +175,10 @@ Page({
       success: function (res) {
         if (res.data.status == 1) {
           var order = res.data.arr;
+          var form_id = order.prepay_id;
+          that.setData({
+            form_id: form_id
+          })
           wx.requestPayment({
             timeStamp: order.timeStamp,
             nonceStr: order.nonceStr,
@@ -184,8 +190,28 @@ Page({
                 title: "支付成功!",
                 duration: 2000,
               });
+              wx.request({
+                url: app.d.ceshiUrl + '/Api/Wxpay/sendMessage',
+                data: {
+                  order_id: order.order_id,
+                  form_id: that.data.form_id
+                },
+                method: 'POST',
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                success: function (res) {
+                  console.log(res.data)
+                },
+                fail: function (res) {
+                  wx.showToast({
+                    title: res,
+                    duration: 3000
+                  })
+                }
+              })
               setTimeout(function () {
-                wx.navigateTo({
+                wx.switchTab({
                   url: '../user/user',
                 });
               }, 3000);
@@ -218,5 +244,6 @@ Page({
     wx.navigateTo({
       url: '/pages/order/detail?orderId=' + id
     })
-  }
+  },
+  
 })

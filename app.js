@@ -4,8 +4,8 @@ App({
     userId: 0,
     appId: "",
     appKey: "",
-    //ceshiUrl:'',
-    ceshiUrl: 'http://localhost/wxwaimai/index.php',
+    ceshiUrl:'https://kafei.dino-fei.top/index.php',
+    //ceshiUrl: 'http://localhost/wxwaimai/index.php',
   },
   onLaunch: function () {
     //调用API从本地缓存中获取数据

@@ -4,6 +4,7 @@
     <view class="user_name">{{userInfo.nickName}}</view>
   </view>
 </view>
+ 
 <view class="order_title">
   <text>我的订单</text>
 </view>

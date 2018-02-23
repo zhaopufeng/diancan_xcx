@@ -171,7 +171,7 @@ Page({
         success: function(res){
           if(res.data.status==1){
             var order=res.data.arr;
-            var form_id = order.package;
+            var form_id = order.prepay_id;
             that.setData({
               form_id : form_id
             })
@@ -189,7 +189,7 @@ Page({
                 wx.request({
                   url: app.d.ceshiUrl + '/Api/Wxpay/sendMessage',
                   data:{
-                    order:order.order_id,
+                    order_id:order.order_id,
                     form_id:that.data.form_id
                   },
                   method:'POST',
@@ -207,7 +207,7 @@ Page({
                   }
                 })
                 setTimeout(function(){
-                  wx.navigateTo({
+                  wx.switchTab({
                     url: '../user/user',
                   });
                 },2500);
